@@ -7,6 +7,7 @@ import packages.Objects.Programare;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 import static packages.Services.MainService.*;
@@ -32,8 +33,8 @@ public class ServiceMedic {
 
         try {
             String querySelectMedici = "SELECT * FROM Medic";
-            PreparedStatement statement = db.getConnection().prepareStatement(querySelectMedici);
-            ResultSet resultSet = statement.executeQuery(); {
+            Statement statement = db.getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(querySelectMedici); {
                 while (resultSet.next()) {
                     int idMedic = resultSet.getInt("id_medic");
                     int idClinica = resultSet.getInt("id_clinica");
