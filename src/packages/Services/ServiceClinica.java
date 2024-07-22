@@ -6,6 +6,7 @@ import packages.Objects.Medic;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -37,8 +38,8 @@ public class ServiceClinica {
 
         try {
             String querySelectClinici = "SELECT * FROM Clinica";
-            PreparedStatement statement = db.getConnection().prepareStatement(querySelectClinici);
-            ResultSet resultSet = statement.executeQuery();
+            Statement statement = db.getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(querySelectClinici);
             while (resultSet.next()) {
                 int id = resultSet.getInt("id_clinica");
                 String denumire = resultSet.getString("denumire");
