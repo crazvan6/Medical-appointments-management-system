@@ -1,20 +1,33 @@
 package packages.Services;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class DatabaseManager {
 
     private static DatabaseManager instance;
     private final Connection connection;
-    static final String DB_URL = "jdbc:mysql://localhost:3306/pao-project";
-    static final String USER = "root";
-    static final String PASS = "counter666";
 
     private DatabaseManager() {
+        Properties properties = new Properties();
+
+        try (FileInputStream input = new FileInputStream("config.properties")) {
+            properties.load(input);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load database properties");
+        }
+
+        String databaseUrl = properties.getProperty("db.url");
+        String user = properties.getProperty("db.user");
+        String password = properties.getProperty("db.password");
+
         try {
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            connection = DriverManager.getConnection(databaseUrl, user, password);
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to connect to the database", e);

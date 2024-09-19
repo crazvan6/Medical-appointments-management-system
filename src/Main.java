@@ -13,6 +13,7 @@ import static packages.Services.MainService.serviceProgramare;
 public class Main {
 
     public static void main(String[] args) {
+
         DatabaseManager dbManager = DatabaseManager.getInstance();
 
         MainService mainService = MainService.getInstance();
@@ -33,7 +34,7 @@ public class Main {
 
         String comanda = scanner.nextLine();
 
-        while (!Objects.equals(comanda, "exit")) {
+        while (!comanda.equals("exit")) {
             switch (comanda) {
                 case "adauga-clinica": {
                     serviceClinica.adaugaClinica(dbManager);
